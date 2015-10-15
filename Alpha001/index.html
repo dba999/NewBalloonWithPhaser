@@ -1,0 +1,210 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>NewBaloon Alpha</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+		<script type="text/javascript" src="js/phaser.min.js"></script>
+		<style>
+		body {				 background: #FFFFFF;}
+		#bandeauTips{
+		background: rgb(237, 237, 237) none repeat scroll 0% 0%;
+		height: 80px;
+		width: 100%;
+		float: right;
+		}
+		#bandeauTips .tips{
+		font-size : 0.75em;
+		display: inline-block;
+		padding: 25px;
+		}
+		#fullScreen{
+		  color: #000000;
+		  background: transparent;
+		  padding: 8px 8px 8px 8px;
+		  text-decoration: none;
+		  font-size: 0.6em;
+		  border : none ;
+		  float : right;
+		}
+			
+		#fullScreen:before{
+		content : " ";
+		background-image : url("img/fullscreen.png");
+		margin : 0;
+		display : block;
+		width : 48px;
+		height : 48px;
+		}
+        #newBalloonDiv {		
+		font-size : 0.75em;
+		display: inline-block;
+		padding: 0px;		
+		width: 100%;
+		height : auto;
+		}
+
+		
+	</style>
+    </head>
+		
+
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="header-container">
+            <header class="wrapper clearfix">
+                <h1 class="title">h1.title</h1>
+                <nav>
+                    <ul>
+                        <li><a href="#">nav ul li a</a></li>
+                        <li><a href="#">nav ul li a</a></li>
+                        <li><a href="#">nav ul li a</a></li>
+                    </ul>
+                </nav>
+            </header>
+        </div>
+
+        <div class="main-container">
+            <div id="mainWrapper" class="main wrapper clearfix">
+                <article>
+                    <header>
+                        <h1>PhoneGap Testing !</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor.</p>
+                    </header>
+                    <section>
+                        <h2>article section h2</h2>
+                        <p>Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices. Proin in est sed erat facilisis pharetra.</p>
+                    </section>
+                </article>
+
+                <aside>
+                    <h3>aside</h3>
+                    <p>Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. </p>
+                </aside>
+				<div id ="bandeauTips"><span id="TIP" class="tips"></span>
+				<button id="fullScreen" class="fullscreen">Loading Page ...</button>
+				</div>
+					<div id="newBalloonDiv"></div>
+            </div> <!-- #main -->
+        </div> <!-- #main-container -->
+
+        <div class="footer-container">
+            <footer class="wrapper">
+                <h3>footer</h3>
+            </footer>
+        </div>
+
+        <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
+        <!-- <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script> -->
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+        <script src="js/main.js"></script>
+
+	<script>
+window.onload= function() {
+		var container = document.getElementById("newBalloonDiv");
+		// homotetie basée sur picstell 480 x 320
+		var referentSizeW = 480;
+		var referentSizeH = 320;
+		var ratio = referentSizeH / referentSizeW;
+		// l'homotetie définit un ratio, qu'on applique sur la largeur pour avoir la hauteur
+		// cette largeur est définie par le template du html
+       var game = new Phaser.Game(container.clientWidth, container.clientWidth * ratio, Phaser.AUTO, 'newBalloonDiv', { preload: preload, create: create });
+
+	   
+	   	document.getElementById("fullScreen").innerHTML = "Fullscreen";
+		document.getElementById("fullScreen").onclick = forFullScreen;
+		function forFullScreen(){
+		launchIntoFullscreen(newBalloonDiv);
+		}
+	
+        function preload () {
+
+            game.load.image('logo', 'assets/phaser.png');
+
+        }
+
+        function create () {
+
+            var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
+            logo.anchor.setTo(0.5, 0.5);
+
+        }
+		
+		function GetWindowSize (container) {
+	//var windowSize = {};		
+	
+	var windowSize = {
+		browserSizeW:   document.documentElement.clientWidth,
+		tempW:			document.documentElement.clientWidth,
+		browserSizeH:	document.documentElement.clientHeight,
+		containerW:		container.offsetWidth,
+		containerH:		container.offsetHeight
+		};
+	console.log("Browser : " + windowSize.browserSizeW + " X " + windowSize.browserSizeH + " px");
+	console.log("Container : " + windowSize.containerW + " X " + windowSize.containerH + " px");
+	return(windowSize);
+	}
+	// Find the right method, call on correct element
+	function launchIntoFullscreen(element) {
+	//isFullScreen = true;
+		  if(element.requestFullscreen) {
+			element.requestFullscreen();
+		  } else if(element.mozRequestFullScreen) {
+			element.mozRequestFullScreen();
+		  } else if(element.webkitRequestFullscreen) {
+			element.webkitRequestFullscreen();
+		  } else if(element.msRequestFullscreen) {
+			element.msRequestFullscreen();
+		  }
+		}
+	function browserResized() {
+			// var fullscreenElement = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
+			// var fullscreenEnabled = document.fullscreenEnabled || document.mozFullScreenEnabled || document.webkitFullscreenEnabled;
+			// alert(isFullScreen + "  Raffraichissez la page pour que le lecteur s'adapte aux nouvelles dimensions.");
+			
+			// Ne réagir que si la largeur à changé, pas la hauteur :
+			if (Math.abs(windowSize.tempW -  document.documentElement.clientWidth) > 20 ) {
+			windowSize.tempW = document.documentElement.clientWidth;
+			document.getElementById("TIP").innerHTML = "Le navigateur a été redimensionné. Vous devrez peut-être raffraichir la page";
+			var resetTips = debounce(effaceTips, 4000); // debounce permet de ne lancer une function qu'au bout d'un certain délai.
+			resetTips();
+			}
+		}	
+	function effaceTips(){document.getElementById("TIP").innerHTML = " ";}
+	// Returns a function, that, as long as it continues to be invoked, will not
+	// be triggered. The function will be called after it stops being called for
+	// N milliseconds. If `immediate` is passed, trigger the function on the
+	// leading edge, instead of the trailing.
+	function debounce(func, wait, immediate) {
+		var timeout;
+		return function() {
+			var context = this, args = arguments;
+			var later = function() {
+				timeout = null;
+				if (!immediate) func.apply(context, args);
+			};
+			var callNow = immediate && !timeout;
+			clearTimeout(timeout);
+			timeout = setTimeout(later, wait);
+			if (callNow) func.apply(context, args);
+		};
+	};
+
+};
+	</script>
+    </body>
+</html>
