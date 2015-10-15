@@ -122,7 +122,7 @@ window.onload= function() {
 		var ratio = referentSizeH / referentSizeW;
 		// l'homotetie définit un ratio, qu'on applique sur la largeur pour avoir la hauteur
 		// cette largeur est définie par le template du html
-       var game = new Phaser.Game(container.clientWidth, container.clientWidth * ratio, Phaser.AUTO, 'newBalloonDiv', { preload: preload, create: create });
+       var game = new Phaser.Game(container.clientWidth, container.clientWidth * ratio, Phaser.AUTO, 'newBalloonDiv', { preload: preload, create: create, update: update, render: render });
 
 	   
 	   	document.getElementById("fullScreen").innerHTML = "Fullscreen";
@@ -141,6 +141,17 @@ window.onload= function() {
 
             var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
             logo.anchor.setTo(0.5, 0.5);
+			 game.stage.backgroundColor = '#4d4d4d';
+
+			// Stretch to fill
+			game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
+
+			// Keep original size
+			// game.scale.fullScreenScaleMode = Phaser.ScaleManager.NO_SCALE;
+
+			// Maintain aspect ratio
+			// game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
+			game.input.onDown.add(gofull, this);
 
         }
 		
@@ -202,6 +213,31 @@ window.onload= function() {
 			timeout = setTimeout(later, wait);
 			if (callNow) func.apply(context, args);
 		};
+	};
+
+
+ function gofull() {
+
+    if (game.scale.isFullScreen)
+    {
+        game.scale.stopFullScreen();
+    }
+    else
+    {
+        game.scale.startFullScreen(false);
+    }
+
+	}
+	function update () { };
+	
+	function render () {
+
+    // game.debug.text('Click / Tap to go fullscreen', 270, 16);
+    // game.debug.text('Click / Tap to go fullscreen', 0, 16);
+
+    //game.debug.inputInfo(32, 32);
+    //game.debug.pointer(game.input.activePointer);
+
 	};
 
 };

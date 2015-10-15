@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns   = "http://www.w3.org/ns/widgets"
+        xmlns:gap   = "http://phonegap.com/ns/1.0"
+		xmlns:android   = "http://schemas.android.com/apk/res/android"
+        id          = "com.NewBalloon.alpha"
+        versionCode = "10" 
+        version     = "1.0.0" >
+		
+		
+		<!-- pour que le gap:config-file ci dessous fonctionne il faut rajouter la 
+		ligne xmlns:android ci dessus -->
+		
+		
+		<!-- <gap:platform name="ios" /> -->
+		<!-- <gap:platform name="winphone" /> -->
+		<gap:platform name="android" />
+		<preference name="orientation" value="landscape" />
+		<preference name="fullscreen" value="true" />
+		
+		
+		<!-- config supplémentaires pour android : -->
+		
+		<gap:config-file platform="android" parent="/manifest" mode="replace">			
+				<activity android:configChanges="locale|keyboard|keyboardHidden|orientation|screenSize" android:label="@string/app_name" android:name=".PGBuildApp" android:screenOrientation="sensorLandscape" android:windowSoftInputMode="adjustUnspecified|stateUnspecified">
+					<intent-filter>
+						<action android:name="android.intent.action.MAIN"/>
+						<category android:name="android.intent.category.LAUNCHER"/>
+					</intent-filter>
+				</activity>
+		</gap:config-file>
+		
+		
+		<!-- config supplémentaires pour ios : -->
+		<gap:config-file platform="ios" parent="UISupportedInterfaceOrientations" mode="replace">
+			<array>
+				<string>UIInterfaceOrientationLandscapeOmg</string>
+			</array>
+		</gap:config-file> 
+    <!-- versionCode is optional and Android only -->
+
+    <name>NewBalloon</name>
+
+    <description>
+       With Phaser ! 
+    </description>
+
+    <author href="https://build.phonegap.com" email="support@phonegap.com">
+        David Bou Aziz
+    </author>
+
+</widget>
