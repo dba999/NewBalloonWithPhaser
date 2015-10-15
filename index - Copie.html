@@ -24,10 +24,6 @@
 		width: 100%;
 		float: right;
 		}
-		.main {
-		padding: 0px 0px;
-		
-		}
 		#bandeauTips .tips{
 		font-size : 0.75em;
 		display: inline-block;
@@ -69,15 +65,48 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-
+        <div class="header-container">
+            <header class="wrapper clearfix">
+                <h1 class="title">h1.title</h1>
+                <nav>
+                    <ul>
+                        <li><a href="#">nav ul li a</a></li>
+                        <li><a href="#">nav ul li a</a></li>
+                        <li><a href="#">nav ul li a</a></li>
+                    </ul>
+                </nav>
+            </header>
+        </div>
 
         <div class="main-container">
             <div id="mainWrapper" class="main wrapper clearfix">
+                <article>
+                    <header>
+                        <h1>PhoneGap Testing !</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor.</p>
+                    </header>
+                    <section>
+                        <h2>article section h2</h2>
+                        <p>Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices. Proin in est sed erat facilisis pharetra.</p>
+                    </section>
+                </article>
+
+                <aside>
+                    <h3>aside</h3>
+                    <p>Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. </p>
+                </aside>
+				<div id ="bandeauTips"><span id="TIP" class="tips"></span>
+				<button id="fullScreen" class="fullscreen">Loading Page ...</button>
+				</div>
 					<div id="newBalloonDiv"></div>
             </div> <!-- #main -->
         </div> <!-- #main-container -->
 
- 
+        <div class="footer-container">
+            <footer class="wrapper">
+                <h3>footer</h3>
+            </footer>
+        </div>
 
         <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
         <!-- <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script> -->
@@ -86,40 +115,21 @@
 
 	<script>
 window.onload= function() {
-		var w = window.innerWidth
-		|| document.documentElement.clientWidth
-		|| document.body.clientWidth;
-
-		var h = window.innerHeight
-		|| document.documentElement.clientHeight
-		|| document.body.clientHeight;
 		var container = document.getElementById("newBalloonDiv");
 		// homotetie basée sur picstell 480 x 320
 		var referentSizeW = 480;
 		var referentSizeH = 320;
+		var ratio = referentSizeH / referentSizeW;
 		// l'homotetie définit un ratio, qu'on applique sur la largeur pour avoir la hauteur
 		// cette largeur est définie par le template du html
-		// toutefois, si la hauteur obtenue est trop grande, on refait le calcul dans l'autre sens
-		var maxHauteur = h;
-		console.log ("hauteur : " +maxHauteur);
-		var ratio = referentSizeH / referentSizeW;
-		var containerW = container.clientWidth;
-		var containerH = container.clientWidth * ratio;
-		console.log ("hauteur containerH : " +containerH);
-		if (containerH > maxHauteur ) {
-		console.log("Holaaaaaa ! ");
-		containerH = maxHauteur;
-		containerW = containerH / ratio;
-		}
-		var mainWrapper = document.querySelector("#mainWrapper");
-		mainWrapper.style.backgroundColor = "gray";
-		mainWrapper.style.width = containerW.toString()+"px";
-		mainWrapper.style.height = containerH.toString()+"px";
-		
-		console.log ("hauteur Phaser : " +containerH);
-       var game = new Phaser.Game(containerW, containerH, Phaser.AUTO, 'newBalloonDiv', { preload: preload, create: create, update: update, render: render });
+       var game = new Phaser.Game(container.clientWidth, container.clientWidth * ratio, Phaser.AUTO, 'newBalloonDiv', { preload: preload, create: create, update: update, render: render });
 
-	  
+	   
+	   	document.getElementById("fullScreen").innerHTML = "Fullscreen";
+		document.getElementById("fullScreen").onclick = forFullScreen;
+		function forFullScreen(){
+		launchIntoFullscreen(newBalloonDiv);
+		}
 	
         function preload () {
 

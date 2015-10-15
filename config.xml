@@ -21,7 +21,7 @@
 		<!-- config supplémentaires pour android : -->
 		
 		<gap:config-file platform="android" parent="/manifest" mode="replace">			
-				<activity android:configChanges="locale|keyboard|keyboardHidden|orientation|screenSize" android:label="@string/app_name" android:name=".PGBuildApp" android:screenOrientation="sensorLandscape" android:windowSoftInputMode="adjustUnspecified|stateUnspecified">
+				<activity android:configChanges="locale|keyboard|keyboardHidden|orientation|screenSize" android:label="@string/app_name" android:name=".PGBuildApp"  android:windowSoftInputMode="adjustUnspecified|stateUnspecified">
 					<intent-filter>
 						<action android:name="android.intent.action.MAIN"/>
 						<category android:name="android.intent.category.LAUNCHER"/>
