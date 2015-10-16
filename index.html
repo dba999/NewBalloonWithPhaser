@@ -17,46 +17,10 @@
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 		<script type="text/javascript" src="js/phaser.min.js"></script>
 		<style>
-		body {				 background: #2D2D2D;}
-		#bandeauTips{
-		background: rgb(237, 237, 237) none repeat scroll 0% 0%;
-		height: 80px;
-		width: 100%;
-		float: right;
-		}
-		.main {
-		padding: 0px 0px;
-		
-		}
-		#bandeauTips .tips{
-		font-size : 0.75em;
-		display: inline-block;
-		padding: 25px;
-		}
-		#fullScreen{
-		  color: #000000;
-		  background: transparent;
-		  padding: 8px 8px 8px 8px;
-		  text-decoration: none;
-		  font-size: 0.6em;
-		  border : none ;
-		  float : right;
-		}
-			
-		#fullScreen:before{
-		content : " ";
-		background-image : url("img/fullscreen.png");
+		body {
+		background: #2D2D2D;
+		padding : 0;
 		margin : 0;
-		display : block;
-		width : 48px;
-		height : 48px;
-		}
-        #newBalloonDiv {		
-		font-size : 0.75em;
-		display: inline-block;
-		padding: 0px;		
-		width: 100%;
-		height : auto;
 		}
 
 		
@@ -68,15 +32,6 @@
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
-
-
-        <div class="main-container">
-            <div id="mainWrapper" class="main wrapper clearfix">
-					<div id="newBalloonDiv"></div>
-            </div> <!-- #main -->
-        </div> <!-- #main-container -->
-
  
 
         <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
@@ -93,31 +48,8 @@ window.onload= function() {
 		var h = window.innerHeight
 		|| document.documentElement.clientHeight
 		|| document.body.clientHeight;
-		var container = document.getElementById("newBalloonDiv");
-		// homotetie basée sur picstell 480 x 320
-		var referentSizeW = 480;
-		var referentSizeH = 320;
-		// l'homotetie définit un ratio, qu'on applique sur la largeur pour avoir la hauteur
-		// cette largeur est définie par le template du html
-		// toutefois, si la hauteur obtenue est trop grande, on refait le calcul dans l'autre sens
-		var maxHauteur = h;
-		console.log ("hauteur : " +maxHauteur);
-		var ratio = referentSizeH / referentSizeW;
-		var containerW = container.clientWidth;
-		var containerH = container.clientWidth * ratio;
-		console.log ("hauteur containerH : " +containerH);
-		if (containerH > maxHauteur ) {
-		console.log("Holaaaaaa ! ");
-		containerH = maxHauteur;
-		containerW = containerH / ratio;
-		}
-		var mainWrapper = document.querySelector("#mainWrapper");
-		mainWrapper.style.backgroundColor = "gray";
-		mainWrapper.style.width = containerW.toString()+"px";
-		mainWrapper.style.height = containerH.toString()+"px";
 		
-		console.log ("hauteur Phaser : " +containerH);
-       var game = new Phaser.Game(containerW, containerH, Phaser.AUTO, 'newBalloonDiv', { preload: preload, create: create, update: update, render: render });
+       var game = new Phaser.Game(w, h, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
 
 	  
 	
@@ -139,57 +71,20 @@ window.onload= function() {
 			// Keep original size
 			// game.scale.fullScreenScaleMode = Phaser.ScaleManager.NO_SCALE;
 
-			// Maintain aspect ratio
-			// game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
-			game.input.onDown.add(gofull, this);
-
         }
 		
-		function GetWindowSize (container) {
-	//var windowSize = {};		
+		function GetWindowSize () {
+	
 	
 	var windowSize = {
 		browserSizeW:   document.documentElement.clientWidth,
 		tempW:			document.documentElement.clientWidth,
 		browserSizeH:	document.documentElement.clientHeight,
-		containerW:		container.offsetWidth,
-		containerH:		container.offsetHeight
 		};
 	console.log("Browser : " + windowSize.browserSizeW + " X " + windowSize.browserSizeH + " px");
-	console.log("Container : " + windowSize.containerW + " X " + windowSize.containerH + " px");
 	return(windowSize);
 	}
-	// Find the right method, call on correct element
-	function launchIntoFullscreen(element) {
-	//isFullScreen = true;
-		  if(element.requestFullscreen) {
-			element.requestFullscreen();
-		  } else if(element.mozRequestFullScreen) {
-			element.mozRequestFullScreen();
-		  } else if(element.webkitRequestFullscreen) {
-			element.webkitRequestFullscreen();
-		  } else if(element.msRequestFullscreen) {
-			element.msRequestFullscreen();
-		  }
-		}
-	function browserResized() {
-			// var fullscreenElement = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
-			// var fullscreenEnabled = document.fullscreenEnabled || document.mozFullScreenEnabled || document.webkitFullscreenEnabled;
-			// alert(isFullScreen + "  Raffraichissez la page pour que le lecteur s'adapte aux nouvelles dimensions.");
-			
-			// Ne réagir que si la largeur à changé, pas la hauteur :
-			if (Math.abs(windowSize.tempW -  document.documentElement.clientWidth) > 20 ) {
-			windowSize.tempW = document.documentElement.clientWidth;
-			document.getElementById("TIP").innerHTML = "Le navigateur a été redimensionné. Vous devrez peut-être raffraichir la page";
-			var resetTips = debounce(effaceTips, 4000); // debounce permet de ne lancer une function qu'au bout d'un certain délai.
-			resetTips();
-			}
-		}	
-	function effaceTips(){document.getElementById("TIP").innerHTML = " ";}
-	// Returns a function, that, as long as it continues to be invoked, will not
-	// be triggered. The function will be called after it stops being called for
-	// N milliseconds. If `immediate` is passed, trigger the function on the
-	// leading edge, instead of the trailing.
+
 	function debounce(func, wait, immediate) {
 		var timeout;
 		return function() {
@@ -205,28 +100,9 @@ window.onload= function() {
 		};
 	};
 
-
- function gofull() {
-
-    if (game.scale.isFullScreen)
-    {
-        game.scale.stopFullScreen();
-    }
-    else
-    {
-        game.scale.startFullScreen(false);
-    }
-
-	}
 	function update () { };
 	
 	function render () {
-
-    // game.debug.text('Click / Tap to go fullscreen', 270, 16);
-    // game.debug.text('Click / Tap to go fullscreen', 0, 16);
-
-    //game.debug.inputInfo(32, 32);
-    //game.debug.pointer(game.input.activePointer);
 
 	};
 
