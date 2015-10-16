@@ -6,8 +6,10 @@ var menuState = {
 		logo.events.onInputDown.add(onDown, this);
 		
 		function onDown(sprite, pointer){
-		game.state.start('play');
+		tweenMenu = game.add.tween(logo).to({alpha: 0}, 800, Phaser.Easing.Linear.None, true);
+		tweenMenu.onComplete.add(onComplete, this);
 		}
+		function onComplete() { game.state.start('play');}
 	}
 
 
