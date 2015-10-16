@@ -10,21 +10,24 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
-
         <link rel="stylesheet" href="css/normalize.min.css">
         <link rel="stylesheet" href="css/main.css">
 
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 		<script type="text/javascript" src="js/phaser.min.js"></script>
+		<script type="text/javascript" src="js/boot.js"></script>
+		<script type="text/javascript" src="js/init.js"></script>
+		<script type="text/javascript" src="js/mainMenu.js"></script>
+		<script type="text/javascript" src="js/play.js"></script>
+		<script type="text/javascript" src="js/game.js"></script>
+		
 		<style>
 		body {
 		background: #2D2D2D;
 		padding : 0;
 		margin : 0;
 		}
-
-		
-	</style>
+		</style>
     </head>
 		
 
@@ -37,41 +40,9 @@
         <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
         <!-- <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script> -->
 		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
-        <script src="js/main.js"></script>
 
 	<script>
 window.onload= function() {
-		var w = window.innerWidth
-		|| document.documentElement.clientWidth
-		|| document.body.clientWidth;
-
-		var h = window.innerHeight
-		|| document.documentElement.clientHeight
-		|| document.body.clientHeight;
-		
-       var game = new Phaser.Game(w, h, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
-
-	  
-	
-        function preload () {
-
-            game.load.image('logo', 'assets/phaser.png');
-
-        }
-
-        function create () {
-
-            var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
-            logo.anchor.setTo(0.5, 0.5);
-			 game.stage.backgroundColor = '#4d4d4d';
-
-			// Stretch to fill
-			game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
-
-			// Keep original size
-			// game.scale.fullScreenScaleMode = Phaser.ScaleManager.NO_SCALE;
-
-        }
 		
 		function GetWindowSize () {
 	
@@ -98,12 +69,6 @@ window.onload= function() {
 			timeout = setTimeout(later, wait);
 			if (callNow) func.apply(context, args);
 		};
-	};
-
-	function update () { };
-	
-	function render () {
-
 	};
 
 };
